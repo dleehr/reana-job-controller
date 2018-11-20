@@ -51,6 +51,9 @@ def add_shared_volume(job):
     if storage_backend == 'CEPHFS':
         volume = volume_templates.get_k8s_cephfs_volume(
             job['metadata']['namespace'])
+    elif storage_backend == 'GLUSTERFS':
+        volume = volume_templates.get_k8s_glusterfs_volume(
+            job['metadata']['namespace'])
     else:
         volume = volume_templates.get_k8s_hostpath_volume(
             job['metadata']['namespace'])

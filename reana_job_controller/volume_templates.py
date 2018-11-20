@@ -29,6 +29,16 @@ CVMFS_REPOSITORIES = {
     'geant4': 'geant4.cern.ch'
 }
 
+K8S_GLUSTERFS_TEMPLATE = """{
+    "name": "reana-shared-volume",
+    "persistentVolumeClaim": {
+        "claimName": "reana-shared"
+    },
+    "readOnly": "false",
+    "storageClassName": "glusterfs-storage"
+}"""
+
+
 K8S_CEPHFS_TEMPLATE = """{
     "name": "reana-shared-volume",
     "persistentVolumeClaim": {
@@ -75,6 +85,18 @@ def get_k8s_cephfs_volume(experiment):
     return json.loads(
         K8S_CEPHFS_TEMPLATE
     )
+
+def get_k8s_glusterfs_volume(experiment):
+    """Render k8s GlusterFS volume template.
+
+    :param experiment: Experiment name.
+    :returns: k8s GlusterFS volume spec as a dictionary.
+    """
+    return json.loads(
+        K8S_GLUSTERFS_TEMPLATE
+    )
+
+
 
 
 def get_k8s_cvmfs_volume(experiment, repository):
